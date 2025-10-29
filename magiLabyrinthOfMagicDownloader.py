@@ -50,14 +50,16 @@ volumes_dict = {
     34: (329, 339),
     35: (339, 350),
     36: (350, 360),
-    37: (360, 370)
+    37: (360, 370),
 }
 volumes = [list(range(start, end)) for start, end in volumes_dict.values()]
+
 
 def download_covers():
     logger.info("Downloading manga covers")
     mangaDexCoverDownloader.download_manga_covers(default_folder_path, mangaDex_code)
     logger.info("Manga covers download complete.")
+
 
 def download_manga_chapters():
     logger.info("Starting download of manga chapters")
@@ -82,6 +84,7 @@ def download_manga_chapters():
                         image_format,
                     )
         logger.info(f"Completed Volume {volume_index}.")
+
 
 if __name__ == "__main__":
     start_time = time.time()

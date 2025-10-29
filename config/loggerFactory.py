@@ -21,7 +21,7 @@ def get_logger(
     max_bytes: int = 10 * 1024 * 1024,
     backup_count: int = 5,
     formatter: logging.Formatter | None = None,
-    disable_propagation: bool = True
+    disable_propagation: bool = True,
 ) -> logging.Logger:
 
     if name is None:
@@ -43,7 +43,9 @@ def get_logger(
 
     # choose formatter
     if formatter is None:
-        formatter_instance = logging.Formatter(_DEFAULT_FORMAT, datefmt=_DEFAULT_TIMEFMT)
+        formatter_instance = logging.Formatter(
+            _DEFAULT_FORMAT, datefmt=_DEFAULT_TIMEFMT
+        )
     else:
         formatter_instance = formatter
 
@@ -57,7 +59,12 @@ def get_logger(
         if not file_path:
             logs_dir = "logs"
             os.makedirs(logs_dir, exist_ok=True)
-            file_name = f"{name}.log" if name != "root" else "application.log"
+            timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+            file_name = (
+                f"{name}-{timestamp}.log"
+                if name != "root"
+                else f"application-{timestamp}.log"
+            )
             file_path = os.path.join(logs_dir, file_name)
         else:
             os.makedirs(os.path.dirname(file_path) or ".", exist_ok=True)
@@ -66,7 +73,7 @@ def get_logger(
             filename=file_path,
             maxBytes=max_bytes,
             backupCount=backup_count,
-            encoding="utf-8"
+            encoding="utf-8",
         )
         fh.setLevel(level)
         fh.setFormatter(formatter_instance)

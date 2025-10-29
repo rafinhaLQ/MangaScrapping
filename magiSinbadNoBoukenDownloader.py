@@ -10,7 +10,9 @@ mangaDex_code = "ac54cf12-1d69-4bcc-8d14-eaec4b4da6b1"
 mangaPill_code = "2687"
 mangaPill_manga_name = "magi-sinbad-no-bouken"
 
-default_folder_path = f"Magi-Sinbad-no-Bouken-Scrapping/Magi The Adventures of Sinbad Vol."
+default_folder_path = (
+    f"Magi-Sinbad-no-Bouken-Scrapping/Magi The Adventures of Sinbad Vol."
+)
 
 # volumes and chapters definition
 volumes_dict = {
@@ -32,14 +34,16 @@ volumes_dict = {
     16: (147, 158),
     17: (158, 168),
     18: (168, 178),
-    19: (178, 183)
+    19: (178, 183),
 }
 volumes = [list(range(start, end)) for start, end in volumes_dict.values()]
+
 
 def download_covers():
     logger.info("Downloading manga covers")
     mangaDexCoverDownloader.download_manga_covers(default_folder_path, mangaDex_code)
     logger.info("Manga covers download complete.")
+
 
 def download_manga_chapters():
     logger.info("Starting download of manga chapters")
@@ -64,6 +68,7 @@ def download_manga_chapters():
                         image_format,
                     )
         logger.info(f"Completed Volume {volume_index}.")
+
 
 if __name__ == "__main__":
     start_time = time.time()

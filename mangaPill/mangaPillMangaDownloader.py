@@ -9,6 +9,7 @@ logger = loggerFactory.get_logger(__name__, logging.INFO, log_to_file=True)
 
 request = retryableHttpSession.create_retryable_session()
 
+
 def fetch_number_of_total_pages(
     manga_code: str, manga_name: str, chapter: int
 ) -> tuple[int, str] | None:
@@ -41,7 +42,12 @@ def fetch_number_of_total_pages(
 
 
 def download_chapter_pages(
-    default_folder_path: str, manga_code: str, chapter: int, page: int, volume: int, image_format: str
+    default_folder_path: str,
+    manga_code: str,
+    chapter: int,
+    page: int,
+    volume: int,
+    image_format: str,
 ) -> bool:
     headers = {"Referer": "https://mangapill.com/"}
     response = request.get(
