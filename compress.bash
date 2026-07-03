@@ -3,7 +3,7 @@
 # Run with: bash .\compress.bash
 
 # Directory containing folders to compress
-BASE_DIR="Tokyo Ghoul-Scrapping"
+BASE_DIR="Sun Ken Rock-Scrapping"
 
 # Output directory for archives
 OUTPUT_DIR="zipped_archives"

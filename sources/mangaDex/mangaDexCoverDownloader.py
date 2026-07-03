@@ -10,7 +10,7 @@ logger = loggerFactory.get_logger(__name__, logging.INFO)
 request = retryableHttpSession.create_retryable_session()
 
 
-def fetch_manga_dex_covers_list(manga_code: str):
+def __fetch_manga_dex_covers_list(manga_code: str):
     resp = request.get(
         f"https://api.mangadex.org/cover?order[volume]=asc&manga[]={manga_code}&limit=100&offset=0"
     )
@@ -24,10 +24,10 @@ def fetch_manga_dex_covers_list(manga_code: str):
     except ValueError:
         logger.error("Response was not valid JSON")
 
-    return parse_cover_collection(data)
+    return __parse_cover_collection(data)
 
 
-def parse_cover_collection(response_json: Union[str, Dict[str, Any]]) -> Dict[str, str]:
+def __parse_cover_collection(response_json: Union[str, Dict[str, Any]]) -> Dict[str, str]:
     if isinstance(response_json, str):
         try:
             response_json = json.loads(response_json)
@@ -63,8 +63,8 @@ def parse_cover_collection(response_json: Union[str, Dict[str, Any]]) -> Dict[st
     return result
 
 
-def download_manga_covers(default_folder_path: str, manga_code: str):
-    volume_to_filename = fetch_manga_dex_covers_list(manga_code)
+def download_manga_covers(default_folder_path: str, mangadex_manga_code: str):
+    volume_to_filename = __fetch_manga_dex_covers_list(mangadex_manga_code)
     if not volume_to_filename:
         logger.error("No covers found to download.")
         return False
@@ -75,7 +75,7 @@ def download_manga_covers(default_folder_path: str, manga_code: str):
         os.makedirs(folder_path, exist_ok=True)
         file_path = os.path.join(folder_path, f"{volume}.cover.jpg")
         try:
-            resp = request.get(f"https://mangadex.org/covers/{manga_code}/{file_name}")
+            resp = request.get(f"https://mangadex.org/covers/{mangadex_manga_code}/{file_name}")
             if resp.status_code != 200:
                 errors[volume] = (
                     f"Error {resp.status_code} - Could not download {file_name}"

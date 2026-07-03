@@ -3,22 +3,22 @@ import sources.mangaDex.mangaDexCoverDownloader as mangaDexCoverDownloader
 import sources.mangaDex.mangaDexMangaDownloader as mangaDexMangaDownloader
 
 
-class BeastarsDownloader(AbstractDownloader):
+class BibliomaniaDownloader(AbstractDownloader):
     def download_covers(self):
         mangaDexCoverDownloader.download_manga_covers(
             self.get_folder_path(),
-            mangadex_manga_code="f5e3baad-3cd4-427c-a2ec-ad7d776b370d",
+            mangadex_manga_code="d22ae7a1-cfae-475a-a8fc-589ef85eece4",
         )
 
     def download_chapters(self):
         mangaDexMangaDownloader.download_manga(
             self.get_folder_path(),
-            mangadex_manga_code="f5e3baad-3cd4-427c-a2ec-ad7d776b370d",
-            translated_language="pt-br",
-            group_id="ba83b2a6-7b2f-431b-9cae-4436cd8cce42",
+            mangadex_manga_code="d22ae7a1-cfae-475a-a8fc-589ef85eece4",
+            translated_language="en",
+            group_id="a9ffebfc-f58b-467f-9506-15f87ffad6fc",
         )
 
 
 if __name__ == "__main__":
-    downloader = BeastarsDownloader("Beastars")
+    downloader = BibliomaniaDownloader("Bibliomania")
     downloader.download()

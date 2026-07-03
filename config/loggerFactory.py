@@ -1,6 +1,5 @@
 import logging
 import os
-import json
 from datetime import datetime
 
 import logging.handlers
@@ -27,7 +26,6 @@ def get_logger(
     if name is None:
         name = "root"
 
-    # map string level names to constants
     if isinstance(level, str):
         level = logging.getLevelName(level.upper())
 
@@ -41,7 +39,6 @@ def get_logger(
     logger.setLevel(level)
     logger.propagate = not disable_propagation
 
-    # choose formatter
     if formatter is None:
         formatter_instance = logging.Formatter(
             _DEFAULT_FORMAT, datefmt=_DEFAULT_TIMEFMT

@@ -3,22 +3,21 @@ import sources.mangaDex.mangaDexCoverDownloader as mangaDexCoverDownloader
 import sources.mangaDex.mangaDexMangaDownloader as mangaDexMangaDownloader
 
 
-class BeastarsDownloader(AbstractDownloader):
+class SunKenRockDownloader(AbstractDownloader):
     def download_covers(self):
         mangaDexCoverDownloader.download_manga_covers(
             self.get_folder_path(),
-            mangadex_manga_code="f5e3baad-3cd4-427c-a2ec-ad7d776b370d",
+            mangadex_manga_code="d8de5f5f-692d-4d8f-9275-2d8cb98b702b",
         )
 
     def download_chapters(self):
         mangaDexMangaDownloader.download_manga(
             self.get_folder_path(),
-            mangadex_manga_code="f5e3baad-3cd4-427c-a2ec-ad7d776b370d",
+            mangadex_manga_code="d8de5f5f-692d-4d8f-9275-2d8cb98b702b",
             translated_language="pt-br",
-            group_id="ba83b2a6-7b2f-431b-9cae-4436cd8cce42",
         )
 
 
 if __name__ == "__main__":
-    downloader = BeastarsDownloader("Beastars")
+    downloader = SunKenRockDownloader("Sun Ken Rock")
     downloader.download()

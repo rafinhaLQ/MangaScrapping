@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
 import os
-import time
 import config.retryableHttpSession as retryableHttpSession
 import config.loggerFactory as loggerFactory
 import logging
@@ -67,3 +66,31 @@ def download_chapter_pages(
     with open(file_path, "wb") as file:
         file.write(response.content)
     return True
+
+
+def download_manga(
+    default_folder_path: str,
+    chapter_per_volumes: dict[int, tuple[int, int]],
+    mangapill_manga_code: str,
+    mangapill_manga_name: str,
+):
+    logger.info("Starting download of manga chapters")
+    for volume_index, (start, end) in chapter_per_volumes.items():
+        logger.info(f"Processing Volume {volume_index}")
+        for chapter_index in range(start, end):
+            logger.info(f"Processing Chapter {chapter_index}")
+            total_number_of_pages, image_format = fetch_number_of_total_pages(
+                mangapill_manga_code, mangapill_manga_name, chapter_index
+            )
+            logger.debug(f"Chapter {chapter_index} has {total_number_of_pages} pages:")
+            if total_number_of_pages is not None:
+                for page in range(1, total_number_of_pages + 1):
+                    download_chapter_pages(
+                        default_folder_path,
+                        mangapill_manga_code,
+                        chapter_index,
+                        page,
+                        volume_index,
+                        image_format,
+                    )
+        logger.info(f"Completed Volume {volume_index}.")
