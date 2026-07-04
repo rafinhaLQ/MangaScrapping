@@ -9,7 +9,7 @@ request = retryableHttpSession.create_retryable_session()
 
 
 def __fetch_chapters_by_group(
-    manga_code: str, translated_language: str, group_id: str = None
+    manga_code: str, translated_language: str, group_id: str | None
 ) -> list[tuple[int, float, str]]:
 
     params = {"translatedLanguage[]": translated_language}
@@ -80,7 +80,7 @@ def download_manga(
     default_folder_path: str,
     mangadex_manga_code: str,
     translated_language: str,
-    group_id: str = None,
+    group_id: str | None,
 ):
     volume_chapter_id_list = __fetch_chapters_by_group(
         mangadex_manga_code, translated_language, group_id
